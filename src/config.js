@@ -1,3 +1,3 @@
 export default {
-  graphqlUrl: 'http://localhost:5000/graphql',
+  graphqlUrl: 'http://localhost:5432/graphql',
 }

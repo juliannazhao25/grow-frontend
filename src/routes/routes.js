@@ -1,8 +1,13 @@
 
 import PublicRoute from './PublicRoute'
-// import PrivateRoute from './PrivateRoute'
+import PrivateRoute from './PrivateRoute'
 
 import Home from '../containers/Home'
+import Greeting from '../containers/Greeting'
+import Login from '../containers/Login'
+import Signup from '../containers/Signup'
+import Kong from '../containers/Kong'
+import HanFei from '../containers/HanFei'
 
 import { ROUTE_PATHS } from '../utils/constants'
 
@@ -16,10 +21,40 @@ import { ROUTE_PATHS } from '../utils/constants'
 */
 
 export const routes = {
+  greeting: {
+    path: ROUTE_PATHS.GREETING,
+    routeComponent: PublicRoute,
+    component: Greeting,
+    exact: true,
+  },
+  login: {
+    path: ROUTE_PATHS.LOGIN,
+    routeComponent: PublicRoute,
+    component: Login,
+    exact: true,
+  },
+  signup: {
+    path: ROUTE_PATHS.SIGNUP,
+    routeComponent: PublicRoute,
+    component: Signup,
+    exact: true,
+  },
   home: {
     path: ROUTE_PATHS.HOME,
-    routeComponent: PublicRoute,
+    routeComponent: PrivateRoute,
     component: Home,
+    exact: true,
+  },
+  confucius: {
+    path: ROUTE_PATHS.KONG,
+    routeComponent: PrivateRoute,
+    component: Kong,
+    exact: true,
+  },
+  hanfeizi: {
+    path: ROUTE_PATHS.HANFEI,
+    routeComponent: PrivateRoute,
+    component: HanFei,
     exact: true,
   },
 }
