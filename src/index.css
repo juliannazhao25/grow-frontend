@@ -45,3 +45,53 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+@font-face {
+	font-family: 'Familjen Grotesk';
+	src: local('Familjen Grotesk'), url(./fonts/Familjen/FamiljenGroteskGF-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Familjen Grotesk Bold';
+	src: local('Familjen Grotesk Bold'), url(./fonts/Familjen/FamiljenGroteskGF-Bold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Gothic A1';
+	src: local('Gothic A1'), url(./fonts/Gothic/GothicA1-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Gothic A1 SemiBold';
+	src: local('Gothic A1 SemiBold'), url(./fonts/Gothic/GothicA1-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Gothic A1 Bold';
+	src: local('Gothic A1 Bold'), url(./fonts/Gothic/GothicA1-Bold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Jost';
+	src: local('Jost'), url(./fonts/Jost/Jost-400-Book.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Jost Semibold';
+	src: local('Jost Semibold'), url(./fonts/Jost/Jost-600-Semi.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Jost Bold';
+	src: local('Jost Bold'), url(./fonts/Jost/Jost-700-Bold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Roboto';
+	src: local('Roboto'), url(./fonts/Roboto/Roboto-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Roboto Bold';
+	src: local('Roboto Bold'), url(./fonts/Roboto/Roboto-Bold.ttf) format('truetype');
+}
