@@ -1,6 +1,7 @@
-/* eslint-disable no-unused-vars */
+
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useMutation } from '@apollo/react-hooks'
 import theme from '../../theme'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
@@ -9,19 +10,36 @@ import LoginInput from '../../components/LoginInput'
 import PWInput from '../../components/PWInput'
 
 import { Background } from '../Greeting/styles'
+import { LOGIN } from './graphql'
+import { useGlobalContext } from '../../utils/globalContext'
 
 const Login = () => {
+  const { setIsSignedIn } = useGlobalContext()
   const history = useHistory()
   const [username, setUsername] = useState('')
-  const [pw, setPw] = useState('')
-
-  const handleSubmit = bool => {
-    if (bool) {
+  const [password, setPw] = useState('')
+  const [login] = useMutation(LOGIN, {
+    variables:
+    {
+      username,
+      password,
+    },
+    onCompleted: async () => {
+      await setIsSignedIn(true)
       history.push({
         pathname: '/home',
       })
-    }
-  }
+    },
+    // onError: err => setErrMsg(err),
+  })
+
+  //   const handleSubmit = bool => {
+  //     if (bool) {
+  //       history.push({
+  //         pathname: '/home',
+  //       })
+  //     }
+  //   }
 
   return (
     <Background>
@@ -54,7 +72,7 @@ const Login = () => {
               font="Jost Semibold"
               backgroundColor={theme.colors.beige}
               color={theme.colors.landingOrange}
-              onClick={() => handleSubmit(true)}
+              onClick={login}
             />
           </div>
         </div>
