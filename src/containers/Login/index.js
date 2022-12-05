@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import theme from '../../theme'
 import Header from '../../components/Header'
@@ -14,6 +14,11 @@ import { LOGIN } from './graphql'
 import { useGlobalContext } from '../../utils/globalContext'
 
 const Login = () => {
+  const location = useLocation()
+  const [isLogin, setIsLogin] = useState(true)
+  useEffect(() => {
+    if (location.state) { setIsLogin(location.state) } // result: 'some_value'
+  }, [location])
   const { setIsSignedIn } = useGlobalContext()
   const history = useHistory()
   const [username, setUsername] = useState('')
@@ -43,7 +48,7 @@ const Login = () => {
 
   return (
     <Background>
-      <Header />
+      <Header isLogin={isLogin} />
       <div
         style={{
           margin: '0 auto',

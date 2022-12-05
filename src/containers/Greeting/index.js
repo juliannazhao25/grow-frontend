@@ -16,10 +16,12 @@ const Greeting = () => {
     if (bool) {
       history.push({
         pathname: '/login',
+        state: bool,
       })
     } else {
       history.push({
         pathname: '/signup',
+        state: bool,
       })
     }
   }
