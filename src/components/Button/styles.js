@@ -18,7 +18,7 @@ export const ButtonBox = styled.button`
 export const ButtonText = styled.p`
   color: ${props => props.color};
   font-family: ${props => props.font};
-  font-size: 3vh;
+  font-size: 3.5vh;
   font-weight: 700;
   @media (max-width: 449px) {
     font-size: 10px;

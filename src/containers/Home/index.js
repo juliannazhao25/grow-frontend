@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../../components/Button'
 import mainLogo from '../../assets/mainLogo.svg'
-import { Background, Logo2 } from './styles'
+import { Background, Logo2 } from '../Greeting/styles'
 import theme from '../../theme'
 
 const Home = () => (
