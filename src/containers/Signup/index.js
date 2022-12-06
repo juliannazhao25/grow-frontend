@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
+import { useMutation } from '@apollo/react-hooks'
 import theme from '../../theme'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
@@ -8,8 +9,12 @@ import Button from '../../components/Button'
 import VanillaInput from '../../components/VanillaInput'
 
 import { Background } from '../Greeting/styles'
+import { REGISTER, LOGIN } from './graphql'
+import { useGlobalContext } from '../../utils/globalContext'
 
 const Signup = () => {
+  const { setIsSignedIn } = useGlobalContext()
+  const history = useHistory()
   const location = useLocation()
   const [isLogin, setIsLogin] = useState(false)
   useEffect(() => {
@@ -18,6 +23,31 @@ const Signup = () => {
   const [firstName, setFirstName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPw] = useState('')
+  const [login] = useMutation(LOGIN, {
+    variables:
+    {
+      username,
+      password,
+    },
+    onCompleted: async () => {
+      await setIsSignedIn(true)
+      history.push({
+        pathname: '/home',
+      })
+    },
+    // onError: err => setErrMsg(err),
+  })
+
+  const [register] = useMutation(REGISTER, {
+    variables: {
+      input: {
+        username,
+        firstName,
+        password,
+      },
+    },
+    // onError: err => setErrMsg(err),
+  })
 
   return (
     <Background>
@@ -64,6 +94,13 @@ const Signup = () => {
             font="Jost Semibold"
             backgroundColor={theme.colors.beige}
             color={theme.colors.landingOrange}
+            onClick={async () => {
+              // if (validate()) {
+              register().then(() => {
+                login()
+              })
+              // }
+            }}
           />
         </div>
       </div>
