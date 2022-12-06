@@ -24,10 +24,12 @@ const GlobalContext = ({ children }) => {
   const history = useHistory()
 
   // Query user data on first render, make sure to edit the VIEWER query in graphql.js
-  const { data, ...viewerRest } = useQuery(VIEWER, {
+  const { data, refetch, ...viewerRest } = useQuery(VIEWER, {
     client,
-    onCompleted: () => {
-      dispatch({ isSignedIn: true })
+    onCompleted: values => {
+      if (values) {
+        dispatch({ isSignedIn: true })
+      }
     },
     onError: () => {
       dispatch({ isSignedIn: false })
@@ -39,7 +41,7 @@ const GlobalContext = ({ children }) => {
   // Creates a memoized version of the global state
   // Add any other state variables as properties of `obj`
   const globalState = useMemo(() => {
-    const obj = { ...viewerRest, ...state }
+    const obj = { refetch, ...viewerRest, ...state }
     obj.viewer = (data && data.viewer) ? data.viewer : null
 
     obj.setIsSignedIn = input => {
