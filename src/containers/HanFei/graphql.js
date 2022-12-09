@@ -11,3 +11,36 @@ export const ADDLAW = gql`
     addLaw(userId: $userId, law: $law, punishment: $punishment, reward: $reward)
   }
 `
+
+export const LAWSBYUSERID = gql`
+  query lawsByUserId ($userId: ID!) {
+    lawsByUserId(userId: $userId) {
+      id
+      userId
+      law
+      punishment
+      reward
+      createdAt
+      updatedAt
+    }
+  }
+`
+
+export const GOALSBYUSERID = gql`
+  query goalsByUserId ($userId: ID!) {
+    goalsByUserId(userId: $userId) {
+      id
+      userId
+      goal
+      reward
+      punishment
+      vermin1
+      vermin2
+      vermin3
+      vermin4
+      vermin5
+      createdAt
+      updatedAt
+    }
+  }
+`

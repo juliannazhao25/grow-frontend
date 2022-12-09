@@ -6,8 +6,13 @@ export const ADDHABIT = gql`
   }
 `
 
-export const ADDHABITLOG = gql`
-  mutation addHabitLog ($habitId: ID!, $date: Date!) {
-    addHabitLog(habitId: $habitId, date: $date)
+export const HABITSBYUSERID = gql`
+  query habitsByUserId ($userId: ID!) {
+    habitsByUserId(userId: $userId) {
+      id
+      userId
+      habit
+      description
+    }
   }
 `
