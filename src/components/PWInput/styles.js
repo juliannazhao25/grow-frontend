@@ -25,6 +25,7 @@ export const Container = styled.div`
   background-color: ${theme.colors.beige};
   height: 60px;
   width: 30vw;
+  margin-top: 7vh;
   border-radius: 13px;
   display: flex;
   flex-direction: row;

@@ -5,6 +5,7 @@ export const VIEWER = gql`
   query Viewer {
     viewer {
       id
+      firstName
     }
   }
 `

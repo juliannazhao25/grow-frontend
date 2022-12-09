@@ -47,7 +47,9 @@ const Home = () => {
                 font="Jost Semibold"
                 backgroundColor="#D4A373"
                 color="#F5DFCD"
-                onClick={() => handleSubmit(false)}
+                onClick={() => history.push({
+                  pathname: '/confucius',
+                })}
               />
             </div>
           </Column>
@@ -61,7 +63,9 @@ const Home = () => {
                 font="Jost Semibold"
                 backgroundColor="#FAEDCD"
                 color="#D4A373"
-                onClick={() => handleSubmit(false)}
+                onClick={() => history.push({
+                  pathname: '/hanfeizi',
+                })}
               />
             </div>
           </Column>

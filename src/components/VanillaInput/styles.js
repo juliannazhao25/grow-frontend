@@ -12,7 +12,7 @@ export const Input = styled.input`
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 13px;
-  margin-bottom: 5vh;
+  margin-top: 5vh;
 
   &::placeholder{
     color: ${props => props.theme.colors.brown};

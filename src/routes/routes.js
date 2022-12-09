@@ -41,7 +41,7 @@ export const routes = {
   },
   home: {
     path: ROUTE_PATHS.HOME,
-    routeComponent: PublicRoute,
+    routeComponent: PrivateRoute,
     component: Home,
     exact: true,
   },
