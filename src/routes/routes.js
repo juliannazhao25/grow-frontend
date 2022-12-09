@@ -41,13 +41,13 @@ export const routes = {
   },
   home: {
     path: ROUTE_PATHS.HOME,
-    routeComponent: PublicRoute,
+    routeComponent: PrivateRoute,
     component: Home,
     exact: true,
   },
   confucius: {
     path: ROUTE_PATHS.KONG,
-    routeComponent: PrivateRoute,
+    routeComponent: PublicRoute,
     component: Kong,
     exact: true,
   },

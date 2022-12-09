@@ -26,7 +26,7 @@ export const WhiteContainer = styled.div`
   max-height: 85%;
   display: flex;
   flex-direction: column;
-  background: ${theme.colors.brown};
+  background: ${props => props.color};
   padding: 3%;
   position: relative;
   z-index: 200;

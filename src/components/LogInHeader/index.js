@@ -31,6 +31,7 @@ const LoginHeader = () => {
       <Modal
         visible={logout}
         closeFunc={() => setLogout(false)}
+        color={theme.colors.brown}
       >
         <div style={{
           display: 'flex', flexDirection: 'column', justifyContent: 'center',

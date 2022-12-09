@@ -12,7 +12,7 @@ import {
 // import Button from '../Button'
 
 const Modal = ({
-  visible, closeFunc, children, x,
+  visible, closeFunc, children, x, color,
 }) => {
   return (
     <PopupModal
@@ -21,7 +21,7 @@ const Modal = ({
       onAfterClose={() => { document.body.style.overflow = 'unset' }}
       appElement={document.getElementById('root') || undefined}
     >
-      <WhiteContainer>
+      <WhiteContainer color={color}>
 {
         x ? (
 <img
@@ -31,6 +31,7 @@ const Modal = ({
     marginLeft: 'auto',
     marginRight: '0',
     width: '3vh',
+    cursor: 'pointer',
   }}
   onClick={closeFunc}
 />
