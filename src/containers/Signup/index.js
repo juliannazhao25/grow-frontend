@@ -8,7 +8,7 @@ import Footer from '../../components/Footer'
 import Button from '../../components/Button'
 import VanillaInput from '../../components/VanillaInput'
 
-import { Background } from '../Greeting/styles'
+import { Background, Error } from '../Greeting/styles'
 import { REGISTER, LOGIN } from './graphql'
 import { useGlobalContext } from '../../utils/globalContext'
 
@@ -23,6 +23,11 @@ const Signup = () => {
   const [firstName, setFirstName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPw] = useState('')
+  const [errMsg, setErrMsg] = useState('')
+  const [nameErrMsg, setNameErrMsg] = useState('')
+  const [usernameErrMsg, setUsernameErrMsg] = useState('')
+  const [passwordErrMsg, setPasswordErrMsg] = useState('')
+
   const [login] = useMutation(LOGIN, {
     variables:
     {
@@ -35,7 +40,7 @@ const Signup = () => {
         pathname: '/home',
       })
     },
-    // onError: err => setErrMsg(err),
+    onError: err => setErrMsg(err),
   })
 
   const [register] = useMutation(REGISTER, {
@@ -46,8 +51,28 @@ const Signup = () => {
         password,
       },
     },
-    // onError: err => setErrMsg(err),
+    onCompleted: () => login(),
+    onError: () => setErrMsg('Username taken :('),
   })
+
+  const handleSubmit = () => {
+    setNameErrMsg('')
+    setUsernameErrMsg('')
+    setPasswordErrMsg('')
+    setErrMsg('')
+    if (firstName === '') {
+      setNameErrMsg('Please enter a first name!')
+    }
+    if (username === '') {
+      setUsernameErrMsg('Please enter a username!')
+    }
+    if (password === '') {
+      setPasswordErrMsg('Please enter a password!')
+    }
+    if (username !== '' && password !== '') {
+      register()
+    }
+  }
 
   return (
     <Background>
@@ -73,20 +98,29 @@ const Signup = () => {
             defaultValue={firstName}
             onChange={setFirstName}
           />
+          <div style={{ height: '1vh', width: 'fit-content' }}>
+            <Error>{nameErrMsg}</Error>
+          </div>
           <VanillaInput
             placeholder="Username"
             type="text"
             defaultValue={username}
             onChange={setUsername}
           />
+          <div style={{ height: '1vh', width: 'fit-content' }}>
+            <Error>{usernameErrMsg}</Error>
+          </div>
           <VanillaInput
             placeholder="Password"
             type="text"
             defaultValue={password}
             onChange={setPw}
           />
+          <div style={{ height: '1vh', width: 'fit-content' }}>
+            <Error>{passwordErrMsg}</Error>
+          </div>
         </div>
-        <div style={{ margin: '3vh auto', width: 'fit-content' }}>
+        <div style={{ margin: '5vh auto', width: 'fit-content' }}>
           <Button
             text="Sign Up"
             width="20vh"
@@ -94,14 +128,11 @@ const Signup = () => {
             font="Jost Semibold"
             backgroundColor={theme.colors.beige}
             color={theme.colors.landingOrange}
-            onClick={async () => {
-              // if (validate()) {
-              register().then(() => {
-                login()
-              })
-              // }
-            }}
+            onClick={handleSubmit}
           />
+        </div>
+        <div style={{ height: '1vh', margin: '1vh auto', width: 'fit-content' }}>
+          <Error>{errMsg}</Error>
         </div>
       </div>
       <Footer />

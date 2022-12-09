@@ -33,3 +33,10 @@ export const Column = styled.div`
   display: flex;
   flex-direction: column;
 `
+
+export const Error = styled.div`
+  font-family: ${theme.fonts.jost};
+  font-size: 15px;
+  color: #D4A373;
+  margin-top: 2vh;
+`

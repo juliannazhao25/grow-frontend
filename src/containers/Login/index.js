@@ -9,7 +9,7 @@ import Button from '../../components/Button'
 import LoginInput from '../../components/LoginInput'
 import PWInput from '../../components/PWInput'
 
-import { Background } from '../Greeting/styles'
+import { Background, Error } from '../Greeting/styles'
 import { LOGIN } from './graphql'
 import { useGlobalContext } from '../../utils/globalContext'
 
@@ -23,6 +23,9 @@ const Login = () => {
   const history = useHistory()
   const [username, setUsername] = useState('')
   const [password, setPw] = useState('')
+  const [errMsg, setErrMsg] = useState('')
+  const [usernameErrMsg, setUsernameErrMsg] = useState('')
+  const [passwordErrMsg, setPasswordErrMsg] = useState('')
   const [login] = useMutation(LOGIN, {
     variables:
     {
@@ -35,16 +38,24 @@ const Login = () => {
         pathname: '/home',
       })
     },
-    // onError: err => setErrMsg(err),
+    onError: () => setErrMsg('Invalid login information'),
   })
 
-  //   const handleSubmit = bool => {
-  //     if (bool) {
-  //       history.push({
-  //         pathname: '/home',
-  //       })
-  //     }
-  //   }
+  const handleSubmit = () => {
+    setUsernameErrMsg('')
+    setPasswordErrMsg('')
+    setErrMsg('')
+    if (username === '') {
+      setUsernameErrMsg('Please enter a username!')
+    }
+    if (password === '') {
+      setPasswordErrMsg('Please enter a password!')
+    }
+    if (username !== '' && password !== '') {
+      login()
+    }
+  }
+
 
   return (
     <Background>
@@ -64,11 +75,19 @@ const Login = () => {
             width={348}
             height={60}
           />
+
+          <div style={{ height: '0.5vh', width: 'fit-content' }}>
+            <Error>{usernameErrMsg}</Error>
+          </div>
+
           <PWInput
             onChange={e => { setPw(e) }}
             width={348}
             height={60}
           />
+          <div style={{ height: '0.5vh', width: 'fit-content' }}>
+            <Error>{passwordErrMsg}</Error>
+          </div>
           <div style={{ margin: '6vh auto', width: 'fit-content' }}>
             <Button
               text="Log In"
@@ -77,8 +96,11 @@ const Login = () => {
               font="Jost Semibold"
               backgroundColor={theme.colors.beige}
               color={theme.colors.landingOrange}
-              onClick={login}
+              onClick={handleSubmit}
             />
+          </div>
+          <div style={{ height: '0.1vh', margin: '2vh auto', width: 'fit-content' }}>
+            <Error>{errMsg}</Error>
           </div>
         </div>
       </div>

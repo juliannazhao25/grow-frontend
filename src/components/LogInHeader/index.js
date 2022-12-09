@@ -14,10 +14,15 @@ import Button from '../Button'
 import User from '../../assets/User.svg'
 import Power from '../../assets/Power.svg'
 import Modal from '../Modal'
+import { useGlobalContext } from '../../utils/globalContext'
 
 const LoginHeader = () => {
-//   const [isLoggedIn, setLoggedIn] = useState(true)
-  const [logout, setLogout] = useState(false)
+  const {
+    logout,
+    viewer,
+  } = useGlobalContext()
+  const firstName = viewer?.firstName
+  const [logoutModal, setLogout] = useState(false)
   const history = useHistory()
 
   const handleSubmit = () => {
@@ -29,7 +34,7 @@ const LoginHeader = () => {
   return (
     <>
       <Modal
-        visible={logout}
+        visible={logoutModal}
         closeFunc={() => setLogout(false)}
         color={theme.colors.brown}
       >
@@ -48,7 +53,7 @@ const LoginHeader = () => {
                 font="Jost Semibold"
                 backgroundColor={theme.colors.beige}
                 color={theme.colors.landingOrange}
-                onClick={() => handleSubmit(false)}
+                onClick={logout}
               />
             </span>
             <Button
@@ -67,7 +72,7 @@ const LoginHeader = () => {
       <Container>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
           <Icon src={User} alt="Grow Logo" onClick={() => handleSubmit(false)} style={{ display: 'flex', flexDirection: 'row' }} />
-          <DisplayName>NAME</DisplayName>
+          <DisplayName>{firstName}</DisplayName>
         </div>
         <SubContainer>
           <Icon2 src={Power} alt="Grow Logo" onClick={() => setLogout(true)} style={{ display: 'flex', flexDirection: 'row' }} />
