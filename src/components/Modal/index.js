@@ -12,7 +12,7 @@ import {
 // import Button from '../Button'
 
 const Modal = ({
-  visible, closeFunc, children,
+  visible, closeFunc, children, x,
 }) => {
   return (
     <PopupModal
@@ -22,16 +22,20 @@ const Modal = ({
       appElement={document.getElementById('root') || undefined}
     >
       <WhiteContainer>
-        <img
-          src={CloseX}
-          alt="Exit button"
-          style={{
-            marginLeft: 'auto',
-            marginRight: '0',
-            width: '3vh',
-          }}
-          onClick={closeFunc}
-        />
+{
+        x ? (
+<img
+  src={CloseX}
+  alt="Exit button"
+  style={{
+    marginLeft: 'auto',
+    marginRight: '0',
+    width: '3vh',
+  }}
+  onClick={closeFunc}
+/>
+        ) : (<></>)
+        }
         <Body>
           {children}
         </Body>

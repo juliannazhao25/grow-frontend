@@ -21,13 +21,12 @@ export const Body = styled.div`
 `
 
 export const WhiteContainer = styled.div`
-  top: 10%;
+  top: 30vh;
   height: fit-content; 
   max-height: 85%;
   display: flex;
   flex-direction: column;
-  background: white;
-  border-radius: 25px;
+  background: ${theme.colors.brown};
   padding: 3%;
   position: relative;
   z-index: 200;
