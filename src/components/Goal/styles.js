@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Box = styled.div`
 width: 35vw;
-height: 20vh;
+height: 25vh;
 overflow-y: scroll;
 padding: 3vh;
 margin: 0 auto 1.5vh auto;
