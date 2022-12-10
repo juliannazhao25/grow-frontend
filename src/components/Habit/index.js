@@ -1,8 +1,10 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/accessible-emoji */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { useMutation, useLazyQuery } from '@apollo/react-hooks'
 import WaffleCard from '../Waffle'
+import WaffleEmpty from '../WaffleEmpty'
 import ProgressBar from '../ProgressBarNew'
 import Check from '../../assets/Check.svg'
 import { LOGBYHABITID, ADDHABITLOG } from './graphql'
@@ -17,7 +19,7 @@ const Habit = ({ habitId }) => {
   const [streak, setStreak] = useState(20)
   const [check, setCheck] = useState(true)
   const [update, setUpdate] = useState(false)
-  const [data, setData] = useState([])
+  const [data, setData] = useState({})
   const [log, setLog] = useState([])
 
   const [logByHabitId, { data: habitsData }] = useLazyQuery(LOGBYHABITID, {
@@ -41,7 +43,7 @@ const Habit = ({ habitId }) => {
     variables:
     {
       habitId,
-      date: '2022-12-09',
+      date,
     },
     onCompleted: () => {
       setCheck(false)
@@ -52,7 +54,7 @@ const Habit = ({ habitId }) => {
   return (
     <>
       <Entry>
-        <WaffleCard log={log} />
+        {data.habit ? <WaffleCard log={log} /> : <WaffleEmpty />}
         <Column2>
           <BizTitle>
             {data.habit}
@@ -61,7 +63,7 @@ const Habit = ({ habitId }) => {
             {data.description}
           </BizSubTitle>
           <Row>
-            <ProgressBar completed={complete(data.successDays)} number={data.successDays} />
+            {data.successDays ? <ProgressBar completed={complete(data.successDays)} number={data.successDays} /> : <ProgressBar completed={0} number={0} />}
             {check ? (<Logo2 src={Check} alt="Check" onClick={() => addHabitLog()} />) : (<Logged>Done!</Logged>)}
           </Row>
           {data.streak ? (
