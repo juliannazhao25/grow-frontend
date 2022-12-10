@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
-import { useMutation, useQuery } from '@apollo/react-hooks'
+import React, { useState, useEffect } from 'react'
+import { useMutation, useLazyQuery } from '@apollo/react-hooks'
 import WaffleCard from '../Waffle'
 import ProgressBar from '../ProgressBarNew'
 import Check from '../../assets/Check.svg'
@@ -16,12 +16,11 @@ const Habit = ({ habitId }) => {
   const complete = count => (count / 8) * 100
   const [streak, setStreak] = useState(20)
   const [check, setCheck] = useState(true)
+  const [update, setUpdate] = useState(false)
   const [data, setData] = useState([])
   const [log, setLog] = useState([])
-  const { data: habitsData } = useQuery(LOGBYHABITID, {
-    variables: {
-      habitId,
-    },
+
+  const [logByHabitId, { data: habitsData }] = useLazyQuery(LOGBYHABITID, {
     onCompleted: d => {
       setData(d.logByHabitId)
       setLog(d.logByHabitId.lastMonth.reverse().slice(20))
@@ -29,6 +28,14 @@ const Habit = ({ habitId }) => {
     },
     fetchPolicy: 'no-cache',
   })
+
+  useEffect(() => {
+    logByHabitId({
+      variables: {
+        habitId,
+      },
+    })
+  }, [update])
 
   const [addHabitLog] = useMutation(ADDHABITLOG, {
     variables:
@@ -38,6 +45,7 @@ const Habit = ({ habitId }) => {
     },
     onCompleted: () => {
       setCheck(false)
+      setUpdate(true)
     },
   })
 

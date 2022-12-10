@@ -6,18 +6,24 @@ import {
   Box, Category, Title, Text, Col, Row, BoldText,
 } from './styles'
 
-const Law = ({ id }) => (
+const Law = ({
+  index, law, punishment, reward,
+}) => (
   <>
     <Box>
-      <Title>Law 1</Title>
-      <Category>One-line description here</Category>
+      <Title>
+        Law
+        {' '}
+        {index}
+      </Title>
+      <Category>{law}</Category>
       <Row style={{ marginBottom: '1vh' }}>
         <BoldText>Punishment:</BoldText>
-        <Text style={{ marginLeft: '0.5vw' }}>Insert here</Text>
+        <Text style={{ marginLeft: '0.5vw' }}>{punishment}</Text>
       </Row>
       <Row style={{ marginBottom: '1vh' }}>
         <BoldText>Reward:</BoldText>
-        <Text style={{ marginLeft: '0.5vw' }}>Insert here</Text>
+        <Text style={{ marginLeft: '0.5vw' }}>{reward}</Text>
       </Row>
     </Box>
   </>

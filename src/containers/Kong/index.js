@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
-import { useMutation, useQuery } from '@apollo/react-hooks'
+import React, { useState, useEffect } from 'react'
+import { useMutation, useLazyQuery } from '@apollo/react-hooks'
 import Habit from '../../components/Habit'
 import Footer from '../../components/Footer'
 import ArrowHeader from '../../components/ArrowHeader'
@@ -19,15 +19,15 @@ const Kong = () => {
   const userId = viewer?.id
   const [data, setData] = useState([])
 
-  const { data: habitsData } = useQuery(HABITSBYUSERID, {
-    variables: {
-      userId,
-    },
-    onCompleted: d => {
-      setData(d.habitsByUserId)
-    },
-    fetchPolicy: 'no-cache',
-  })
+  //   const { data: habitsData } = useQuery(HABITSBYUSERID, {
+  //     variables: {
+  //       userId,
+  //     },
+  //     onCompleted: d => {
+  //       setData(d.habitsByUserId)
+  //     },
+  //     fetchPolicy: 'no-cache',
+  //   })
 
   //   const [addHabit] = useMutation(ADDHABIT, {
   //     variables: {
@@ -40,6 +40,21 @@ const Kong = () => {
   //     onCompleted: () => login(),
   //     onError: () => setErrMsg('Username taken :('),
   //   })
+
+  const [habitsByUserId, { data: habitsData }] = useLazyQuery(HABITSBYUSERID, {
+    onCompleted: d => {
+      setData(d.habitsByUserId)
+    },
+    fetchPolicy: 'no-cache',
+  })
+
+  useEffect(() => {
+    habitsByUserId({
+      variables: {
+        userId,
+      },
+    })
+  }, [])
 
   return (
     <>
@@ -59,7 +74,7 @@ const Kong = () => {
             <Logo src={PlusCircle} alt="plus" />
           </Row>
           <Column>
-            {data ? (
+            {data.length !== 0 ? (
               <>
                 {data.map(a => (
                   <Habit
