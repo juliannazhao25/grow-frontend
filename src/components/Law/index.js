@@ -21,10 +21,12 @@ const Law = ({
         <BoldText>Punishment:</BoldText>
         <Text style={{ marginLeft: '0.5vw' }}>{punishment}</Text>
       </Row>
-      <Row style={{ marginBottom: '1vh' }}>
-        <BoldText>Reward:</BoldText>
-        <Text style={{ marginLeft: '0.5vw' }}>{reward}</Text>
-      </Row>
+      {reward ? (
+        <Row style={{ marginBottom: '1vh' }}>
+          <BoldText>Reward:</BoldText>
+          <Text style={{ marginLeft: '0.5vw' }}>{reward}</Text>
+        </Row>
+      ) : <></>}
     </Box>
   </>
 )

@@ -1,7 +1,7 @@
 
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import { useLazyQuery } from '@apollo/react-hooks'
+import { useMutation, useLazyQuery } from '@apollo/react-hooks'
 import {
   ADDGOAL,
   ADDLAW,
@@ -11,7 +11,8 @@ import {
 import { useGlobalContext } from '../../utils/globalContext'
 
 import {
-  Background, Row, Column, Column2, Title, Logo, EmptyText, Box, Row2, Box2, Column3,
+  Background, Row, Column, Column2, Title, Logo, EmptyText,
+  Box, Row2, Box2, Column3, Error,
 } from './styles'
 import {
   Body, Body2, CloseButton, LawDesc, LawDesc1, LawTitle, GoalTitle,
@@ -42,6 +43,8 @@ const HanFei = () => {
   const [vermin3, setVermin3] = useState('')
   const [vermin4, setVermin4] = useState('')
   const [vermin5, setVermin5] = useState('')
+  const [errMsg, setErrMsg] = useState('')
+  const [update, setUpdate] = useState(false)
   const [data, setData] = useState()
   const { viewer } = useGlobalContext()
   const userId = viewer?.id
@@ -81,7 +84,81 @@ const HanFei = () => {
         userId,
       },
     })
-  }, [])
+  }, [update])
+
+  const [addGoal] = useMutation(ADDGOAL, {
+    variables: {
+      userId,
+      goal,
+      reward,
+      punishment,
+      vermin1,
+      vermin2,
+      vermin3,
+      vermin4,
+      vermin5,
+    },
+    onCompleted: () => {
+      setPopup2(false)
+      setGoal('')
+      setReward('')
+      setPunishment('')
+      setVermin1('')
+      setVermin2('')
+      setVermin3('')
+      setVermin4('')
+      setVermin5('')
+      setErrMsg('')
+      setUpdate(!update)
+    },
+    onError: () => setErrMsg('Cannot add goal. Please try again later.'),
+  })
+
+  const handleSubmit2 = () => {
+    setErrMsg('')
+    if (goal === '') {
+      setErrMsg('Please enter a goal!')
+    } else if (punishment === '') {
+      setErrMsg('Please enter a punishment!')
+    } else if (reward === '') {
+      setErrMsg('Please enter a reward!')
+    } else if (vermin1 === '') {
+      setErrMsg('Please enter a vermin!')
+    }
+    if (goal !== '' && reward !== '' && punishment !== '' && vermin1 !== '') {
+      addGoal()
+    }
+  }
+
+  const [addLaw] = useMutation(ADDLAW, {
+    variables: {
+      userId,
+      law,
+      reward,
+      punishment,
+    },
+    onCompleted: () => {
+      setPopup(false)
+      setLaw('')
+      setReward('')
+      setPunishment('')
+      setErrMsg('')
+      setUpdate(!update)
+    },
+    onError: () => setErrMsg('Cannot add law. Please try again later.'),
+  })
+
+  const handleSubmit = () => {
+    setErrMsg('')
+    if (law === '') {
+      setErrMsg('Please enter a law!')
+    } else if (punishment === '') {
+      setErrMsg('Please enter a punishment!')
+    }
+    if (law !== '' && punishment !== '') {
+      addLaw()
+    }
+  }
 
   return (
     <>
@@ -91,9 +168,22 @@ const HanFei = () => {
         onAfterClose={() => { document.body.style.overflow = 'unset' }}
         appElement={document.getElementById('root') || undefined}
       >
-        <Main onClick={() => setPopup2(false)} />
+        <Main onClick={() => {
+          setPopup2(false)
+          setErrMsg('')
+        }}
+        />
         <WhiteContainer background="white" style={{ zIndex: 200, position: 'relative' }}>
-          <div style={{ backgroundColor: 'red' }} onClick={() => setPopup2(false)} onKeyDown={() => setPopup2(false)} role="button" tabIndex={0}>
+          <div
+            style={{ backgroundColor: 'red' }}
+            onClick={() => {
+              setPopup2(false)
+              setErrMsg('')
+            }}
+            onKeyDown={() => setPopup2(false)}
+            role="button"
+            tabIndex={0}
+          >
             <CloseButton
               src={CloseXBlack}
               alt="Exit button"
@@ -103,6 +193,7 @@ const HanFei = () => {
             <GoalTitle>
               Add a Goal
             </GoalTitle>
+            {errMsg ? <Error>{errMsg}</Error> : <></>}
             <Body2>
               <GoalDesc1>Goal</GoalDesc1>
               <AddInput
@@ -122,7 +213,7 @@ const HanFei = () => {
                 fontColor="black"
                 backgroundColor="white"
               />
-              <GoalDesc>Reward (Optional)</GoalDesc>
+              <GoalDesc>Reward</GoalDesc>
               <AddInput
                 type="text"
                 outline="black"
@@ -185,6 +276,7 @@ const HanFei = () => {
                 font="Gothic A1"
                 backgroundColor="black"
                 color="white"
+                onClick={handleSubmit2}
               />
             </div>
           </Body>
@@ -196,9 +288,25 @@ const HanFei = () => {
         onAfterClose={() => { document.body.style.overflow = 'unset' }}
         appElement={document.getElementById('root') || undefined}
       >
-        <Main onClick={() => setPopup(false)} />
+        <Main onClick={() => {
+          setPopup(false)
+          setErrMsg('')
+        }}
+        />
         <WhiteContainer background="black" style={{ zIndex: 200, position: 'relative' }}>
-          <div style={{ backgroundColor: 'red' }} onClick={() => setPopup(false)} onKeyDown={() => setPopup(false)} role="button" tabIndex={0}>
+          <div
+            style={{ backgroundColor: 'red' }}
+            onClick={() => {
+              setPopup(false)
+              setErrMsg('')
+            }}
+            onKeyDown={() => {
+              setPopup(false)
+              setErrMsg('')
+            }}
+            role="button"
+            tabIndex={0}
+          >
             <CloseButton
               src={CloseXWhite}
               alt="Exit button"
@@ -209,6 +317,7 @@ const HanFei = () => {
               <LawTitle>
                 Write a Law
               </LawTitle>
+              {errMsg ? <Error>{errMsg}</Error> : <></>}
               <LawDesc1>Law</LawDesc1>
               <AddInput
                 type="text"
@@ -245,6 +354,7 @@ const HanFei = () => {
                 font="Gothic A1"
                 backgroundColor="white"
                 color="black"
+                onClick={handleSubmit}
               />
             </div>
           </Body>
@@ -256,9 +366,25 @@ const HanFei = () => {
         onAfterClose={() => { document.body.style.overflow = 'unset' }}
         appElement={document.getElementById('root') || undefined}
       >
-        <Main onClick={() => setPopup(false)} />
+        <Main onClick={() => {
+          setPopup(false)
+          setErrMsg('')
+        }}
+        />
         <WhiteContainer background="black" style={{ zIndex: 200, position: 'relative' }}>
-          <div style={{ backgroundColor: 'red' }} onClick={() => setPopup(false)} onKeyDown={() => setPopup(false)} role="button" tabIndex={0}>
+          <div
+            style={{ backgroundColor: 'red' }}
+            onClick={() => {
+              setPopup(false)
+              setErrMsg('')
+            }}
+            onKeyDown={() => {
+              setPopup(false)
+              setErrMsg('')
+            }}
+            role="button"
+            tabIndex={0}
+          >
             <CloseButton
               src={CloseXWhite}
               alt="Exit button"
@@ -269,6 +395,7 @@ const HanFei = () => {
               <LawTitle>
                 Write a Law
               </LawTitle>
+              {errMsg ? <Error>{errMsg}</Error> : <></>}
               <LawDesc1>Law</LawDesc1>
               <AddInput
                 type="text"
@@ -305,6 +432,7 @@ const HanFei = () => {
                 font="Gothic A1"
                 backgroundColor="white"
                 color="black"
+                onClick={handleSubmit}
               />
             </div>
           </Body>
@@ -325,7 +453,14 @@ const HanFei = () => {
             <Column>
               <Row2>
                 <Title>Goals</Title>
-                <Logo src={PlusCircleBlack} alt="plus" onClick={() => setPopup2(true)} />
+                <Logo
+                  src={PlusCircleBlack}
+                  alt="plus"
+                  onClick={() => {
+                    setPopup2(true)
+                    setErrMsg('')
+                  }}
+                />
               </Row2>
               <Box2>
                 {goals.length !== 0 ? (
@@ -372,7 +507,10 @@ const HanFei = () => {
                     font="Gothic A1"
                     backgroundColor="black"
                     color="white"
-                    onClick={() => setPopup(true)}
+                    onClick={() => {
+                      setPopup(true)
+                      setErrMsg('')
+                    }}
                   />
                 </div>
               </Box>

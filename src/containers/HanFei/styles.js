@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import theme from '../../theme'
 
 export const Background = styled.div`
   height: 84vh;
@@ -87,4 +88,11 @@ width: 40vw;
 height: 80vh;
 overflow-y: scroll;
 margin: 0.5vh auto;
+`
+
+export const Error = styled.div`
+  font-family: ${theme.fonts.jost};
+  font-size: 20px;
+  color: #AA280E;
+  margin-bottom: 2vh;
 `

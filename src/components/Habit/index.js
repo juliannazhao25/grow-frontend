@@ -45,7 +45,7 @@ const Habit = ({ habitId }) => {
     },
     onCompleted: () => {
       setCheck(false)
-      setUpdate(true)
+      setUpdate(!update)
     },
   })
 
