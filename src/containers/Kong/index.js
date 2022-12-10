@@ -1,18 +1,46 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
-
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import Habit from '../../components/Habit'
 import Footer from '../../components/Footer'
 import ArrowHeader from '../../components/ArrowHeader'
-
 import PlusCircle from '../../assets/PlusCircle.svg'
-
+import { useGlobalContext } from '../../utils/globalContext'
 import {
   Background, Title, Column, Row, Logo, EmptyText,
 } from './styles'
 
+import { ADDHABIT, HABITSBYUSERID } from './graphql'
+
 const Kong = () => {
-  const [data, setData] = useState('hi')
+  const {
+    viewer,
+  } = useGlobalContext()
+  const userId = viewer?.id
+  const [data, setData] = useState([])
+
+  const { data: habitsData } = useQuery(HABITSBYUSERID, {
+    variables: {
+      userId,
+    },
+    onCompleted: d => {
+      setData(d.habitsByUserId)
+    },
+    fetchPolicy: 'no-cache',
+  })
+
+  //   const [addHabit] = useMutation(ADDHABIT, {
+  //     variables: {
+  //       input: {
+  //         username,
+  //         firstName,
+  //         password,
+  //       },
+  //     },
+  //     onCompleted: () => login(),
+  //     onError: () => setErrMsg('Username taken :('),
+  //   })
+
   return (
     <>
       <ArrowHeader color="red" icon="water" />
@@ -33,9 +61,11 @@ const Kong = () => {
           <Column>
             {data ? (
               <>
-                <Habit />
-                <Habit />
-                <Habit />
+                {data.map(a => (
+                  <Habit
+                    habitId={a.id}
+                  />
+                ))}
               </>
             ) : (
               <>

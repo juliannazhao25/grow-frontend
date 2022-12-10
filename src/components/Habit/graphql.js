@@ -16,7 +16,10 @@ export const LOGBYHABITID = gql`
         totalDays
         successDays
         streak
-        lastMonth
+        lastMonth {
+          date
+          completed
+        }
     }
   }
 `
