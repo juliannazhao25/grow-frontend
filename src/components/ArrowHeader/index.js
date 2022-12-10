@@ -53,13 +53,13 @@ const ArrowHeader = ({ color, icon }) => {
           </Sub>
         </div>
       </Modal>
-      <Container color={color === 'red' ? '#FEFAE0' : (color === 'black' ? 'white' : '#D9DD92')}>
+      <Container color={color === 'red' ? '#FEFAE0' : (color === 'black' ? '#F4F4F6' : '#D9DD92')}>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
           <Icon src={color === 'red' ? ArrowRed : (color === 'black' ? ArrowBlack : ArrowBrown)} alt="Red Arrow" onClick={() => handleSubmit()} style={{ display: 'flex', flexDirection: 'row' }} />
         </div>
         <SubContainer>
           {icon === 'water' ? (<Icon2 src={WaterIconBlue} alt="Grow Logo" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'row' }} onClick={() => setReminder(true)} />)
-            : (icon === 'fish' ? FishIconGreen : ScaleIconBW)}
+            : (<Icon2 src={icon === 'fish' ? FishIconGreen : ScaleIconBW} alt="Grow Logo" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'row' }} onClick={() => setReminder(true)} />)}
         </SubContainer>
       </Container>
     </>
