@@ -45,7 +45,7 @@ export const Container = styled.div`
 `
 
 export const Sub = styled.div`
-  width: 22vw;
+  width: 35vw;
   display: flex;
   flex-direction: column;
   margin: 0 auto;

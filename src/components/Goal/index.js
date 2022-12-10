@@ -38,7 +38,7 @@ const Goal = ({
           {vermin5 ? (
             <Row style={{ marginBottom: '1vh' }}>
               <Category>Vermin 5:</Category>
-              <Text style={{ marginLeft: '0.5vw' }}>{vermin4}</Text>
+              <Text style={{ marginLeft: '0.5vw' }}>{vermin5}</Text>
             </Row>
           ) : <></>}
         </Col>
@@ -56,7 +56,7 @@ const Goal = ({
           {vermin4 ? (
             <Row style={{ marginBottom: '1vh' }}>
               <Category>Vermin 4:</Category>
-              <Text style={{ marginLeft: '0.5vw' }}>{vermin5}</Text>
+              <Text style={{ marginLeft: '0.5vw' }}>{vermin4}</Text>
             </Row>
           ) : <></>}
         </Col>

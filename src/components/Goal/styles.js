@@ -38,7 +38,8 @@ flex-direction: row;
 
 export const Col = styled.div`
 display: flex;
-width: 15vw;
+width: 17vw;
+word-break: break-all;
 
 flex-direction: column;
 `

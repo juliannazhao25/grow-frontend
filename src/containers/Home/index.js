@@ -15,19 +15,6 @@ import LoginHeader from '../../components/LogInHeader'
 const Home = () => {
   const history = useHistory()
 
-  const handleSubmit = bool => {
-    if (bool) {
-      history.push({
-        pathname: '/login',
-        state: bool,
-      })
-    } else {
-      history.push({
-        pathname: '/signup',
-        state: bool,
-      })
-    }
-  }
   return (
     <Background>
       <LoginHeader />
@@ -79,7 +66,9 @@ const Home = () => {
                 font="Jost Semibold"
                 backgroundColor="#CCD5AE"
                 color="#FCF7D9"
-                onClick={() => handleSubmit(true)}
+                onClick={() => history.push({
+                  pathname: '/zhuangzi',
+                })}
               />
             </div>
           </Column>

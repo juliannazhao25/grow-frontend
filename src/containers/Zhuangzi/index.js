@@ -35,7 +35,7 @@ const Zhuangzi = () => {
   }
   return (
     <Background style={{ backgroundImage: `url(${background})` }}>
-      <ArrowHeader color="#D9DD92" icon="fish" />
+      <ArrowHeader color="none" icon="fish" />
       <div style={{
         display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '81vh',
       }}

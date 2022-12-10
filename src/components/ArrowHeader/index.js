@@ -44,18 +44,27 @@ const ArrowHeader = ({ color, icon }) => {
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
         }}
         >
-          <ReminderTitle>Reminders</ReminderTitle>
+          <ReminderTitle>Ritual for Coding</ReminderTitle>
           <Sub>
-            <Line>Step 1: Hi</Line>
-            <Line>Step 2: Bye</Line>
-            <Line>Step 3: Why</Line>
-            <Line>Step 4: Sigh</Line>
+            <Line>Step 1: Take out mouse and keyboard</Line>
+            <Line>Step 2: Elevate laptop on stand</Line>
+            <Line>Step 3: Stretch neck and back</Line>
+            <Line>Step 4: Start to code! :)</Line>
           </Sub>
         </div>
       </Modal>
       <Container color={color === 'red' ? '#FEFAE0' : (color === 'black' ? '#F4F4F6' : 'none')}>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-          <Icon src={color === 'red' ? ArrowRed : (color === 'black' ? ArrowBlack : ArrowBrown)} alt="Red Arrow" onClick={() => handleSubmit()} style={{ display: 'flex', flexDirection: 'row' }} />
+          <Icon
+            src={color === 'red' ? ArrowRed : (color === 'black' ? ArrowBlack : ArrowBrown)}
+            alt="Arrow"
+            onClick={color === 'black' || color === 'red' || color === 'none' ? (() => handleSubmit()) : (() => {
+              history.push({
+                pathname: '/zhuangzi',
+              })
+            })}
+            style={{ display: 'flex', flexDirection: 'row' }}
+          />
         </div>
         <SubContainer>
           {icon === 'water' ? (<Icon2 src={WaterIconBlue} alt="Grow Logo" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'row' }} onClick={() => setReminder(true)} />)
