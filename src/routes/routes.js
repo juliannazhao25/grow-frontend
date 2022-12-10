@@ -53,7 +53,7 @@ export const routes = {
   },
   hanfeizi: {
     path: ROUTE_PATHS.HANFEI,
-    routeComponent: PrivateRoute,
+    routeComponent: PublicRoute,
     component: HanFei,
     exact: true,
   },
