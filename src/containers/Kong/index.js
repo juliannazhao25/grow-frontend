@@ -15,7 +15,8 @@ import { ADDHABIT, HABITSBYUSERID } from './graphql'
 import Button from '../../components/Button'
 import AddInput from '../../components/AddInput'
 import {
-  Body, Body3, CloseButton, HabitDesc, HabitDesc1, HabitTitle, Main, PopupModal2, WhiteContainer,
+  Body, Body3, CloseButton, HabitDesc, HabitDesc1, HabitDesc2,
+  HabitTitle, Main, PopupModal2, WhiteContainer,
 } from '../../components/Add/styles'
 
 const Kong = () => {
@@ -26,29 +27,37 @@ const Kong = () => {
   const [data, setData] = useState([])
   const [habit, setHabit] = useState('')
   const [desc, setDesc] = useState('')
+  const [errMsg, setErrMsg] = useState('')
   const [popup, setPopup] = useState(false)
+  const [update, setUpdate] = useState(false)
 
-  //   const { data: habitsData } = useQuery(HABITSBYUSERID, {
-  //     variables: {
-  //       userId,
-  //     },
-  //     onCompleted: d => {
-  //       setData(d.habitsByUserId)
-  //     },
-  //     fetchPolicy: 'no-cache',
-  //   })
+  const [addHabit] = useMutation(ADDHABIT, {
+    variables: {
+      userId,
+      habit,
+      description: desc,
+    },
+    onCompleted: () => {
+      setPopup(false)
+      setHabit('')
+      setDesc('')
+      setErrMsg('')
+      setUpdate(!update)
+    },
+    onError: () => setErrMsg('Cannot add habit. Please try again later.'),
+  })
 
-  //   const [addHabit] = useMutation(ADDHABIT, {
-  //     variables: {
-  //       input: {
-  //         username,
-  //         firstName,
-  //         password,
-  //       },
-  //     },
-  //     onCompleted: () => login(),
-  //     onError: () => setErrMsg('Username taken :('),
-  //   })
+  const handleSubmit = () => {
+    setErrMsg('')
+    if (habit === '') {
+      setErrMsg('Please enter a habit!')
+    } else if (desc === '') {
+      setErrMsg('Please enter a desciption!')
+    }
+    if (habit !== '' && desc !== '') {
+      addHabit()
+    }
+  }
 
   const [habitsByUserId, { data: habitsData }] = useLazyQuery(HABITSBYUSERID, {
     onCompleted: d => {
@@ -63,7 +72,7 @@ const Kong = () => {
         userId,
       },
     })
-  }, [])
+  }, [update])
 
   return (
     <>
@@ -75,7 +84,23 @@ const Kong = () => {
       >
         <Main onClick={() => setPopup(false)} />
         <WhiteContainer background="#AA280E" style={{ zIndex: 200, position: 'relative' }}>
-          <div style={{ backgroundColor: 'red' }} onClick={() => setPopup(false)} onKeyDown={() => setPopup(false)} role="button" tabIndex={0}>
+          <div
+            style={{ backgroundColor: 'red' }}
+            onClick={() => {
+              setPopup(false)
+              setHabit('')
+              setDesc('')
+              setErrMsg('')
+            }}
+            onKeyDown={() => {
+              setPopup(false)
+              setHabit('')
+              setDesc('')
+              setErrMsg('')
+            }}
+            role="button"
+            tabIndex={0}
+          >
             <CloseButton
               src={CloseX}
               alt="Exit button"
@@ -113,8 +138,10 @@ const Kong = () => {
                 font="Roboto"
                 backgroundColor="#FEFAE0"
                 color="#AA280E"
+                onClick={handleSubmit}
               />
             </div>
+            <HabitDesc2>{errMsg}</HabitDesc2>
           </Body>
         </WhiteContainer>
       </PopupModal2>

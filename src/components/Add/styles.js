@@ -147,3 +147,11 @@ color: #FEFAE0;
 
     margin-bottom: 1vh;
 `
+
+export const HabitDesc2 = styled.p`
+font-family: 'Gothic A1';
+font-size: 20px;
+color: #FEFAE0;
+
+    margin-bottom: 1vh;
+`
