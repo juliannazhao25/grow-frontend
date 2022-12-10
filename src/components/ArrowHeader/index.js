@@ -59,7 +59,7 @@ const ArrowHeader = ({ color, icon }) => {
         </div>
         <SubContainer>
           {icon === 'water' ? (<Icon2 src={WaterIconBlue} alt="Grow Logo" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'row' }} onClick={() => setReminder(true)} />)
-            : (<Icon2 src={icon === 'fish' ? FishIconGreen : ScaleIconBW} alt="Grow Logo" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'row' }} onClick={() => setReminder(true)} />)}
+            : (<Icon2 src={icon === 'fish' ? FishIconGreen : ScaleIconBW} alt="Grow Logo" style={{ display: 'flex', flexDirection: 'row' }} />)}
         </SubContainer>
       </Container>
     </>
