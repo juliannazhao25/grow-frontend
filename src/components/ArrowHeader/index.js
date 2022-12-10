@@ -53,7 +53,7 @@ const ArrowHeader = ({ color, icon }) => {
           </Sub>
         </div>
       </Modal>
-      <Container color={color === 'red' ? '#FEFAE0' : (color === 'black' ? '#F4F4F6' : '#D9DD92')}>
+      <Container color={color === 'red' ? '#FEFAE0' : (color === 'black' ? '#F4F4F6' : 'none')}>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
           <Icon src={color === 'red' ? ArrowRed : (color === 'black' ? ArrowBlack : ArrowBrown)} alt="Red Arrow" onClick={() => handleSubmit()} style={{ display: 'flex', flexDirection: 'row' }} />
         </div>

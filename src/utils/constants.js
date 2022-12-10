@@ -8,4 +8,7 @@ export const ROUTE_PATHS = {
   KONG: '/confucius',
   HANFEI: '/hanfeizi',
   ZHUANG: '/zhuangzi',
+  KUN: '/kun',
+  MENG: '/meng',
+  PENG: '/peng',
 }

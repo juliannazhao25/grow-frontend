@@ -10,6 +10,10 @@ import Kong from '../containers/Kong'
 import HanFei from '../containers/HanFei'
 
 import { ROUTE_PATHS } from '../utils/constants'
+import Zhuangzi from '../containers/Zhuangzi'
+import Kun from '../containers/Meditation/Kun'
+import Peng from '../containers/Meditation/Peng'
+import Meng from '../containers/Meditation/Meng'
 
 /*
 * This object's entries are a list of all routes in the app
@@ -47,14 +51,38 @@ export const routes = {
   },
   confucius: {
     path: ROUTE_PATHS.KONG,
-    routeComponent: PublicRoute,
+    routeComponent: PrivateRoute,
     component: Kong,
     exact: true,
   },
   hanfeizi: {
     path: ROUTE_PATHS.HANFEI,
-    routeComponent: PublicRoute,
+    routeComponent: PrivateRoute,
     component: HanFei,
+    exact: true,
+  },
+  kun: {
+    path: ROUTE_PATHS.KUN,
+    routeComponent: PrivateRoute,
+    component: Kun,
+    exact: true,
+  },
+  peng: {
+    path: ROUTE_PATHS.PENG,
+    routeComponent: PrivateRoute,
+    component: Peng,
+    exact: true,
+  },
+  meng: {
+    path: ROUTE_PATHS.MENG,
+    routeComponent: PrivateRoute,
+    component: Meng,
+    exact: true,
+  },
+  zhuangzi: {
+    path: ROUTE_PATHS.ZHUANGZI,
+    routeComponent: PrivateRoute,
+    component: Zhuangzi,
     exact: true,
   },
 }
